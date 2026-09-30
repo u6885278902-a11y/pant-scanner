@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PANTPLAST – QR Scanner</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+  font-family:Arial,Helvetica,sans-serif; background:linear-gradient(135deg,#eaf8ee,#f7fbf8);
+  color:#10251a;
+}
+.card{
+  width:min(92vw,700px); background:white; border-radius:28px; padding:38px;
+  text-align:center; box-shadow:0 15px 45px rgba(0,0,0,.12);
+}
+.logo{font-size:42px;font-weight:900;letter-spacing:1px}
+.logo span{color:#159447}
+h1{font-size:clamp(42px,9vw,78px);margin:28px 0 12px}
+p{font-size:24px;margin:0 0 28px}
+.check{color:#159447;font-size:110px;line-height:1}
+.cross{color:#e32626;font-size:110px;line-height:1}
+.back{display:inline-block;padding:14px 24px;border-radius:14px;background:#10251a;color:white;text-decoration:none;font-weight:800}
+.small{font-size:14px;color:#66756c;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="card" id="app"></div>
+<script>
+const status = new URLSearchParams(location.search).get("status");
+const app = document.getElementById("app");
+
+if (status === "accepted") {
+  app.innerHTML = `
+    <div class="logo">PANT<span>PLAST</span></div>
+    <div class="check">✓</div>
+    <h1>ACCEPTERET!</h1>
+    <p>EMBALLAGEN ER GODKENDT</p>
+    <a class="back" href="?">SCAN IGEN</a>
+  `;
+} else if (status === "rejected") {
+  app.innerHTML = `
+    <div class="logo">PANT<span>PLAST</span></div>
+    <div class="cross">✕</div>
+    <h1>NEJ!</h1>
+    <p>SÆT DET IND IGEN</p>
+    <a class="back" href="?">PRØV IGEN</a>
+  `;
+} else {
+  app.innerHTML = `
+    <div class="logo">PANT<span>PLAST</span></div>
+    <h1>QR SCANNER</h1>
+    <p>SCAN EN QR-KODE FOR AT SE RESULTATET</p>
+    <a class="back" href="?status=accepted">TEST ACCEPTERET</a>
+    <br><br>
+    <a class="back" href="?status=rejected">TEST NEJ</a>
+  `;
+}
+</script>
+</body>
+</html>
